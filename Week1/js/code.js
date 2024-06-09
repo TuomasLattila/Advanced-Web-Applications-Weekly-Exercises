@@ -1,16 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-    generateWikiItems(5);
+    generateWikiItems(5, "hound");
 });
 
 function generateWikiItems(number) {
     let container = document.getElementsByClassName("container")
+    let breedList = ["hound", "akita", "boxer", "shiba", "pug"]
+
     for (let index = 0; index < number; index++) {
         let wikiItem = document.createElement("div");
         wikiItem.className = "wiki-item";
 
         let wikiHeader = document.createElement("H1");
         wikiHeader.className = "wiki-header";
-        wikiHeader.textContent = "Breed X"
+        wikiHeader.textContent = breedList[index].toUpperCase()
 
         let wikiContent = document.createElement("div");
         wikiContent.className = "wiki-content";
@@ -24,6 +26,9 @@ function generateWikiItems(number) {
 
         let wikiImg = document.createElement("img");
         wikiImg.className = "wiki-img";
+        fetchRandomDogPictureByBreed(breedList[index]).then(res => {
+            wikiImg.src = res.message
+        })
         
         wikiItem.appendChild(wikiHeader)
         wikiItem.appendChild(wikiContent)
@@ -34,5 +39,15 @@ function generateWikiItems(number) {
         imgContainer.appendChild(wikiImg)
 
         container[0].appendChild(wikiItem);
+    }
+}
+
+const fetchRandomDogPictureByBreed = async (breed) => {
+    let url = "https://dog.ceo/api/breed/"+breed+"/images/random";
+    try {
+        const dataPromise = await fetch(url)
+        return dataPromise.json()
+    } catch (error) {
+        console.log(error)
     }
 }
