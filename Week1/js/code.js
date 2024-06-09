@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     generateWikiItems(5, "hound");
 });
 
-function generateWikiItems(number) {
+ function generateWikiItems(number) {
     let container = document.getElementsByClassName("container")
     let breedList = ["hound", "akita", "boxer", "shiba", "pug"]
 

@@ -19,10 +19,12 @@
 @media (min-width: 600px) {
     .wiki-content {
         display: flex;
+        flex-direction: row-reverse;
     }
     .wiki-text {
         min-width: 50%;
         max-width: 50%;
+        text-align: center;
     }
     .img-container {
         min-width: 50%;
