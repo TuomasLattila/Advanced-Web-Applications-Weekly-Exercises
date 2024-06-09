@@ -19,7 +19,9 @@ function generateWikiItems(number) {
 
         let wikiText = document.createElement("p");
         wikiText.className = "wiki-text"
-        wikiText.textContent = "Some text about this breed."
+        fetchWikiTextByBreed(breedList[index]).then(res => {
+            wikiText.textContent = res.extract
+        })
 
         let imgContainer = document.createElement("div");
         imgContainer.className = "img-container"
@@ -44,6 +46,16 @@ function generateWikiItems(number) {
 
 const fetchRandomDogPictureByBreed = async (breed) => {
     let url = "https://dog.ceo/api/breed/"+breed+"/images/random";
+    try {
+        const dataPromise = await fetch(url)
+        return dataPromise.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const fetchWikiTextByBreed = async (breed) => {
+    let url = "https://en.wikipedia.org/api/rest_v1/page/summary/"+breed;
     try {
         const dataPromise = await fetch(url)
         return dataPromise.json()
