@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-taskList = []
+var taskList = require('../taskList')
 
 router.post('/', function(req, res, next) {
 	let existingName = false
