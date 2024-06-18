@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #header
+    h1= title
+  #container
+    h2#header-name Name: 
+      input(type="text" id="input-name")
+    h2#header-task Task: 
+      input(type="text" id="input-task")
+    button(type="button" id="submit-data") Submit
+    i#display-res
