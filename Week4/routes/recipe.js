@@ -24,4 +24,9 @@ router.get("/:food", function(req, res, next) {
     }
 })
 
+router.post("/", function(req, res, next) {
+    recipeList.push(req.body)
+    res.json(req.body)
+})
+
 module.exports = router;

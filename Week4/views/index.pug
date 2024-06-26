@@ -1,12 +1,34 @@
 extends layout
 
 block content
-  h1= title
-  #recipe
-    h2 Recipe:
-    h3 Name:
-    p#recipe-name 
-    h3 Instructions: 
-    p#recipe-instructions 
-    h3 Ingredients: 
-    p#recipe-ingredients 
+  <nav>
+    <div class="nav-wrapper">
+      a.brand-logo=title 
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      </ul>
+    </div>
+  </nav>
+  .container
+    #recipe-container.col
+      h2 Recipe:
+      h3 Name
+      p#recipe-name 
+      h3 Instructions
+      p#recipe-instructions 
+      h3 Ingredients 
+      p#recipe-ingredients 
+      hr
+    #add-container.col
+      h2 Add recipe:
+      <h4>Name</h4>
+      <input type="text" id="name-text">
+      <h4>Ingredients</h4>
+      <textarea id="ingredients-text"></textarea>
+      <button id="add-ingredient" type="button" class="btn">Add ingredient</button>
+      <h4>instructions</h4>
+      <textarea id="instructions-text"></textarea>
+      <button id="add-instruction" type="button" class="btn">Add instruction</button>
+      br
+      input(type="file" id="image-input" accept="image/*" class="file-field input-field" multiple)
+      br
+      <button id="submit" type="submit" class="btn">Submit</button>
