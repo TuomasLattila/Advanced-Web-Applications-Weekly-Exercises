@@ -3,9 +3,10 @@ extends layout
 block content
   <nav>
     <div class="nav-wrapper">
-      a.brand-logo=title 
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-      </ul>
+      a.brand-logo.left=title 
+      <div class="right">
+        <input id="search" type="search" class="white" placeholder="Search">
+      </div>
     </div>
   </nav>
   .container
@@ -30,5 +31,10 @@ block content
       <button id="add-instruction" type="button" class="btn">Add instruction</button>
       br
       input(type="file" id="image-input" accept="image/*" class="file-field input-field" multiple)
+      
+      <form action="#" id="checkbox-container">
+        label(for="checkbox-container") Categories:
+      </form>
+      
       br
       <button id="submit" type="submit" class="btn">Submit</button>

@@ -8,3 +8,15 @@ a {
 .nav-wrapper {
   padding-left: 5px;
 }
+
+
+.label-icon.active {
+  .material-icons {
+    visibility: hidden;
+  }
+}
+
+#checkbox-container {
+  border: 2px solid black;
+  padding: 5px;
+}
