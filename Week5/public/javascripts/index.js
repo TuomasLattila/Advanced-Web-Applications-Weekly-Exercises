@@ -22,15 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("http://localhost:3000/category/all", { method: "GET" })
     .then((res) => res.json())
     .then((json) => {
-        json.categories.forEach(category => {
+        json.categories.forEach((category, index) => {
+            //console.log(category._id)
             checkboxContainer.innerHTML += `
                 <p>
                     <label>
-                        <input class="c-box" id="red" type="checkbox" data-id=${category._id}/>
+                        <input class="c-box" id="red ${index}" type="checkbox"/>
                         <span>${category.name}</span>
                     </label>
                 </p>
             `;
+            let newCheckbox = document.getElementById("red "+index)
+            newCheckbox.setAttribute("data-id", category._id)
         });
     })
 })
@@ -51,47 +54,36 @@ submitBtn.addEventListener("click", () => {
     const nameInput = document.getElementById("name-text")
     let categoriesList = []
     let checkboxes = document.getElementsByClassName("c-box")
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            //console.log(checkboxes[i].dataset.id)
-            categoriesList.push(checkboxes[i].dataset.id)
-        }
-    };
 
-    fetch("http://localhost:3000/recipe/", {
-        method: "POST",
-        body: JSON.stringify({
-            name: nameInput.value,
-            ingredients: ingredientList,
-            instructions: instructionList,
-            categories: categoriesList
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
+    uploadImages().then((returnedList) => {
+
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                //console.log(checkboxes[i].getAttribute("data-id"))
+                categoriesList.push(checkboxes[i].getAttribute("data-id"))
+            }
+        };
+
+        fetch("http://localhost:3000/recipe/", {
+            method: "POST",
+            body: JSON.stringify({
+                name: nameInput.value,
+                ingredients: ingredientList,
+                instructions: instructionList,
+                categories: categoriesList,
+                images: returnedList
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then((res) => res.json())
+        .then((json) => console.log(json))
+
+        nameInput.value = ""
+        ingredientList = []
+        instructionList = []
     })
-    .then((res) => res.json())
-    .then((json) => console.log(json))
-
-    nameInput.value = ""
-    ingredientList = []
-    instructionList = []
-
-    let images = imageInput.files
-    let imagesList = []
-    for (let i = 0; i<images.length; i++) {
-        imagesList.push(images[i].name)
-    }
-    let data = new FormData()
-    data.append("images", imagesList)
-
-    fetch("http://localhost:3000/images", {
-        method: "POST",
-        body: data,
-    })
-    .then((res) => res.json())
-    .then((json) => console.log(json.msg))
-    imageInput.value = ""
 })
 
 
@@ -111,3 +103,22 @@ searchInput.addEventListener('keypress', (event) => {
         searchInput.value = ""
     }
 })
+
+
+
+async function uploadImages() {
+    let data = new FormData()
+    for (let i = 0; i<imageInput.files.length; i++) {
+        data.append("images", imageInput.files[i])
+    }
+
+    return fetch("http://localhost:3000/images", {
+        method: "POST",
+        body: data,
+    })
+    .then((res) => res.json())
+    .then((json) => {
+        imageInput.value = ""
+        return json.ids
+    })
+}

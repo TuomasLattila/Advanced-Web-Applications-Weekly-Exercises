@@ -18,8 +18,8 @@ router.get("/:food", async function(req, res, next) {
                 ingredients: []
             })
         }
-    } catch {
-        return next();
+    } catch (error) {
+        return next(error);
     }
 })
 
@@ -31,15 +31,16 @@ router.post("/", async function(req, res, next) {
                 name: req.body.name,
                 instructions: req.body.instructions,
                 ingredients: req.body.ingredients,
-                categories: req.body.categories
+                categories: req.body.categories,
+                images: req.body.images
             })
             await newRecipe.save()
             res.send(req.body);
         } else {
-            res.status(403).send("This recipe already exists.")
+            res.status(403).json({ msg: "This recipe already exists."})
         }
-    } catch {
-        return next();
+    } catch (error) {
+        return next(error);
     }
 })
 
