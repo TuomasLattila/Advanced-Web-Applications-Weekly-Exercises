@@ -7,6 +7,7 @@ const imageInput = document.getElementById("image-input")
 const submitBtn = document.getElementById("submit")
 const searchInput = document.getElementById("search")
 const checkboxContainer = document.getElementById("checkbox-container")
+const imagesContainer = document.getElementById("images")
 
 let ingredientList = []
 let instructionList = []
@@ -96,6 +97,13 @@ searchInput.addEventListener('keypress', (event) => {
                 recipeName.innerText = json.name;
                 recipeIngredients.innerText = json.ingredients
                 recipeInstructions.innerText = json.instructions
+                imagesContainer.innerHTML="";
+
+                for (let i = 0; i<json.images.length; i++) {
+                    imagesContainer.innerHTML += `
+                        <img src="/images/${json.images[i]}">
+                    `;
+                }
             })
         } catch {
             console.log("Failed fetching data!")

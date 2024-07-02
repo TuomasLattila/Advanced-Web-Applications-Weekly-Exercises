@@ -9,13 +9,17 @@ router.get("/:food", async function(req, res, next) {
             res.json({
                 name: req.params.food,
                 instructions: recipe.instructions,
-                ingredients: recipe.ingredients
+                ingredients: recipe.ingredients,
+                categories: recipe.categories,
+                images: recipe.images
             })
         } else {
             res.json({
                 name: req.params.food,
                 instructions: [],
-                ingredients: []
+                ingredients: [],
+                categories: [],
+                images: []
             })
         }
     } catch (error) {
