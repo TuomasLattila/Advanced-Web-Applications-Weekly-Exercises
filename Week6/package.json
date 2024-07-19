@@ -1,0 +1,23 @@
+{
+  "name": "car-catalogy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/index.js",
+    "dev-server": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"nodemon ./dist/index.js\""
+  },
+  "author": "T.L",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.9",
+    "tsc-watch": "^6.2.0",
+    "typescript": "^5.5.3"
+  }
+}
